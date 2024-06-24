@@ -65,22 +65,53 @@ public class MainApplication {
 
 		ArrayList<String> nombres_especialidad = new ArrayList<String>();
 		ArrayList<String> horarios_especialidad = new ArrayList<String>();
-
+		ArrayList<String> grupo_ordenado = new ArrayList<String>();
+		
+		//Defino un nuevo map donde voy a agrupar las especialidades con la lista con los nombres y horarios de los pacientes.
+		Map<String, ArrayList<String>> pacientes_agrupados = new HashMap<String, ArrayList<String>>();
 		//Recorro la lista de especialidades y llamo a la funcion agrupar especialidad para que me traiga los nombres y horarios de los turnos de cada especialidad.
-
+		
 		for (int i=0; i< lista_especialidades.length; i++){
 
 			nombres_especialidad = buscadores.agrupar_especialidad(lista_especialidades[i], especialidades, nombres);
 			horarios_especialidad = buscadores.agrupar_especialidad(lista_especialidades[i], especialidades, horarios);
 
-			System.out.println(nombres_especialidad);
-
+			//ingreso los datos en el map pcientes_agrupados, usando como key la especialidad y como value la lista de pacientes ordenados por horarios
+			// que se genera llamando a la funcion ordenar por horarios de la clase buscadores
+			pacientes_agrupados.put(lista_especialidades[i],buscadores.ordenar_por_horarios(nombres_especialidad,horarios_especialidad));
 		}
 
+		//defino dos nuevos maps, donde utilizando como key la especialidad, defino como value en uno el nombre del especialista y en el otro el consultorio
+		
+		Map<String, String> especialistas = new HashMap<String, String>();
+
+		especialistas.put("Neurologia","Dra. Sabrina Lopez");
+		especialistas.put("Cardiologia","Dra. Juliana Garcia");
+		especialistas.put("Oftalmologia","Dr. Roberto Perez");
+		especialistas.put("Clinica Medica", "Dra. Monica Guzman");
 
 
+		Map<String, String> consultorios = new HashMap<String, String>();
+		consultorios.put("Neurologia","Consultorio 5");
+		consultorios.put("Cardiologia","Consultorio 7");
+		consultorios.put("Oftalmologia","Consultorio 1");
+		consultorios.put("Clinica Medica", "Consultorio 4");
 
+		//utilizo un foreach para recorrer los 3 maps e informar en pantalla lo solicitado:
+		pacientes_agrupados.forEach((k,v)->{
 
+			System.out.println(k + " - "+consultorios.get(k)+ " - "+ especialistas.get(k)+":");
+			for(int i=0;i<v.size();i++){
+				System.out.println(v.get(i));
+			}
+		System.out.println("");
+		});
 
+		//Recorro el Map pacientes agrupados nuevamente para mostrar en pantalla la cantidad de pacientes que hay por especialidad:
+		System.out.println("Número de pacientes por especialidad:");
+		pacientes_agrupados.forEach((k,v)->{
+
+			System.out.println(k+": "+v.size()+" pacientes");
+		});
 	}
 }
