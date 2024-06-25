@@ -6,8 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.stream.Collectors;
-
-import com.ejercicios.main.Buscadores;
+import com.ejercicios.main.Funciones;
 
 
 public class MainApplication {
@@ -57,28 +56,30 @@ public class MainApplication {
 
 		String lista_especialidades[] ={"Oftalmologia","Cardiologia","Clinica Medica","Neurologia"};
 
-		//Para agrupar por especialidad uso la funcion agrupar_ especialidad de la clase Buscadores. Primero instancio la clase:
+		//Para agrupar por especialidad uso la funcion agrupar_ especialidad de la clase Funcinones. Primero instancio la clase:
 
-		Buscadores buscadores = new Buscadores();
+		Funciones funciones = new Funciones();
 
 		//Defino ArrayList donde se van a guardar los nombres y los horarios de cada especialidades
 
 		ArrayList<String> nombres_especialidad = new ArrayList<String>();
 		ArrayList<String> horarios_especialidad = new ArrayList<String>();
-		ArrayList<String> grupo_ordenado = new ArrayList<String>();
 		
-		//Defino un nuevo map donde voy a agrupar las especialidades con la lista con los nombres y horarios de los pacientes.
+		
+		//Defino un nuevo map donde voy a agrupar las especialidades,  con los nombres y horarios de los pacientes.
+		
 		Map<String, ArrayList<String>> pacientes_agrupados = new HashMap<String, ArrayList<String>>();
+		
 		//Recorro la lista de especialidades y llamo a la funcion agrupar especialidad para que me traiga los nombres y horarios de los turnos de cada especialidad.
 		
 		for (int i=0; i< lista_especialidades.length; i++){
 
-			nombres_especialidad = buscadores.agrupar_especialidad(lista_especialidades[i], especialidades, nombres);
-			horarios_especialidad = buscadores.agrupar_especialidad(lista_especialidades[i], especialidades, horarios);
+			nombres_especialidad = funciones.agrupar_especialidad(lista_especialidades[i], especialidades, nombres);
+			horarios_especialidad = funciones.agrupar_especialidad(lista_especialidades[i], especialidades, horarios);
 
-			//ingreso los datos en el map pcientes_agrupados, usando como key la especialidad y como value la lista de pacientes ordenados por horarios
-			// que se genera llamando a la funcion ordenar por horarios de la clase buscadores
-			pacientes_agrupados.put(lista_especialidades[i],buscadores.ordenar_por_horarios(nombres_especialidad,horarios_especialidad));
+			//ingreso los datos en el map pacientes_agrupados, usando como key la especialidad y como value la lista de pacientes ordenados por horarios
+			// que se genera llamando a la funcion ordenar por horarios de la clase buscadores:
+			pacientes_agrupados.put(lista_especialidades[i],funciones.ordenar_por_horarios(nombres_especialidad,horarios_especialidad));
 		}
 
 		//defino dos nuevos maps, donde utilizando como key la especialidad, defino como value en uno el nombre del especialista y en el otro el consultorio

@@ -4,34 +4,28 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Map;
 
-public class Buscadores {
+public class Funciones {
+// La funciona agrupara por especialidad recibe el nombre de la especialidad y dos maps que relaciona mediante la especialidad:
 
     public ArrayList<String> agrupar_especialidad (String especialidad,Map<Integer,String> especialidades,Map<Integer,String> map_valor_buscado){
         ArrayList<String> grupo_especialidad = new ArrayList<String>();
 
         especialidades.forEach((k,v)-> {
             if (v.equalsIgnoreCase(especialidad)) {
-
-                grupo_especialidad.add(map_valor_buscado.get(k));
-                
+                grupo_especialidad.add(map_valor_buscado.get(k));              
             }
-
-
         });
-
         return grupo_especialidad;
-
     }
 
     public ArrayList<String> ordenar_por_horarios (ArrayList<String> nombres,ArrayList<String> horarios) {
     
-    //Defino una nueva ArrayList que va a ser el Return de la función, que se va a contituir de los elementos de
-    // nombre y horarios, concatendados y ordenados por horarios. 
-    
+        //Defino una nueva ArrayList que va a ser el Return de la función, que se va a contituir de los elementos de
+    // nombre y horarios, concatendados y ordenados por horarios.    
+   
     ArrayList<String> grupo_ordenado = new ArrayList<String>();
-
-
-        // creo una lista donde van a quedar ordenadas las posiciones de ambos ArrayList
+    
+    // creo una lista donde van a quedar ordenadas las posiciones de ambos ArrayList
 
     ArrayList<Integer> orden = new ArrayList<Integer>();
         for(int i=0;i<horarios.size();i++){
@@ -49,13 +43,8 @@ public class Buscadores {
 
             grupo_ordenado.add(nombres.get(orden.get(i))+" - "+horarios.get(orden.get(i))+" hs");
 
-
         }
-
-
-
         return grupo_ordenado;
-
     }
     
     
